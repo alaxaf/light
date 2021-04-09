@@ -3,18 +3,10 @@ from datetime import datetime
 from flask import Flask, render_template, request
 
 import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BOARD)  # the pin numbers refer to the board connector not the chip
+GPIO.setmode(GPIO.BOARD) 
 GPIO.setwarnings(False)
-GPIO.setup(16, GPIO.IN, GPIO.PUD_UP) # set up pin ?? (one of the above listed pins) as an input with a pull-up resistor
-GPIO.setup(18, GPIO.IN, GPIO.PUD_UP) # set up pin ?? (one of the above listed pins) as an input with a pull-up resistor
 GPIO.setup(7, GPIO.OUT)
-GPIO.output(7, GPIO.HIGH)
-GPIO.setup(11, GPIO.OUT)
-GPIO.output(11, GPIO.HIGH)
-GPIO.setup(13, GPIO.OUT)
-GPIO.output(13, GPIO.HIGH)
-GPIO.setup(15, GPIO.OUT)
-GPIO.output(15, GPIO.HIGH)
+GPIO.output(7, GPIO.LOW)
 
 
 
@@ -23,16 +15,13 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-        if GPIO.input(16) == GPIO.HIGH and GPIO.input(18) == GPIO.HIGH:
-             print("Garage is Opening/Closing")
-             return app.send_static_file('Question.html')
+        if GPIO.output(7) == GPIO.HIGH
+             print("light is on")
+             return app.send_static_file('on.html')
         else:  
-             if GPIO.input(16) == GPIO.LOW:
-                   print ("Garage is Closed")
-                   return app.send_static_file('Closed.html')
-             if GPIO.input(18) == GPIO.LOW:
-                   print ("Garage is Open")
-                   return app.send_static_file('Open.html')
+             if GPIO.output(7) == GPIO.LOW:
+                   print ("light is off")
+                   return app.send_static_file('off.html')
 
 
 @app.route('/Garage', methods=['GET', 'POST'])
