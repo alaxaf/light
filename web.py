@@ -13,7 +13,9 @@ GPIO.output(7, GPIO.LOW)
 
 app = Flask(__name__)
 
-
+@app.route('/', methods=['GET', 'POST'])
+def index():
+return app.send_static_file('Open.html')
 
 @app.route('/Garage', methods=['GET', 'POST'])
 def Garage():
@@ -28,13 +30,7 @@ def Garage():
 def stylesheet():
         return app.send_static_file('stylesheet.css')
 
-@app.route('/Log')
-def logfile():
-        return app.send_static_file('log.txt')
 
-@app.route('/images/<picture>')
-def images(picture):
-        return app.send_static_file('images/' + picture)
 
 if __name__ == '__main__':
         app.run(debug=True, host='0.0.0.0', port=5000)
