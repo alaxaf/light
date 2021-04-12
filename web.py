@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-return app.send_static_file('Open.html')
+return app.send_static_file('switch.html')
 
 @app.route('/Garage', methods=['GET', 'POST'])
 def Garage():
